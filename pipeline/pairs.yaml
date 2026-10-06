@@ -1,0 +1,70 @@
+# 롱숏 페어 확정 목록. 순서 = 화면 목록 순서.
+# symbol 은 반드시 따옴표로 감싼다 (122630 처럼 숫자만인 코드가 정수로 읽힌다).
+
+# ── 교수 예시 (M1) ──
+- id: kr-skhynix
+  market: KR
+  underlying: SK하이닉스
+  longs:
+    - {symbol: "0193T0", name: "KODEX SK하이닉스단일종목레버리지", mult: 2}
+    - {symbol: "0195S0", name: "TIGER SK하이닉스단일종목레버리지", mult: 2}
+    - {symbol: "0194T0", name: "ACE SK하이닉스단일종목레버리지", mult: 2}
+    - {symbol: "0197W0", name: "SOL SK하이닉스단일종목레버리지", mult: 2}
+    - {symbol: "0192L0", name: "RISE SK하이닉스단일종목레버리지", mult: 2}
+    - {symbol: "0198D0", name: "1Q SK하이닉스선물단일종목레버리지", mult: 2}
+    - {symbol: "0194R0", name: "KIWOOM SK하이닉스선물단일종목레버리지", mult: 2}
+  shorts:
+    - {symbol: "0197X0", name: "SOL SK하이닉스선물단일종목인버스2X", mult: -2}
+
+- id: us-spacex
+  market: US
+  underlying: SpaceX (SPCX)
+  longs:
+    - {symbol: "SPCH", name: "Leverage Shares 2X Long SPCX Daily ETF", mult: 2}
+    - {symbol: "SPCM", name: "Tradr 2X Long SpaceX Daily", mult: 2}
+    - {symbol: "SPCU", name: "Defiance Daily Target 2X Long SPCX ETF", mult: 2}
+    - {symbol: "LOFF", name: "Direxion Daily SpaceX Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "SSPC", name: "Leverage Shares 2X Short SPCX Daily ETF", mult: -2}
+
+- id: us-semis
+  market: US
+  underlying: 필라델피아 반도체 (SOX)
+  longs:
+    - {symbol: "SOXL", name: "Direxion Daily Semiconductor Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "SOXS", name: "Direxion Daily Semiconductor Bear 3X ETF", mult: -3}
+
+# ── 교수 Toss 관심목록 + 기준 페어 (M2) ──
+- id: kr-samsung
+  market: KR
+  underlying: 삼성전자
+  longs:
+    - {symbol: "0193K0", name: "PLUS 삼성전자단일종목레버리지", mult: 2}
+    - {symbol: "0193W0", name: "KODEX 삼성전자단일종목레버리지", mult: 2}
+    - {symbol: "0195R0", name: "TIGER 삼성전자단일종목레버리지", mult: 2}
+    - {symbol: "0194M0", name: "ACE 삼성전자단일종목레버리지", mult: 2}
+    - {symbol: "0192M0", name: "RISE 삼성전자단일종목레버리지", mult: 2}
+    - {symbol: "0198B0", name: "1Q 삼성전자선물단일종목레버리지", mult: 2}
+    - {symbol: "0194N0", name: "KIWOOM 삼성전자선물단일종목레버리지", mult: 2}
+  shorts:
+    - {symbol: "0193L0", name: "PLUS 삼성전자선물단일종목인버스2X", mult: -2}
+
+- id: us-tesla
+  market: US
+  underlying: 테슬라 (TSLA)
+  longs:
+    - {symbol: "TSLT", name: "T-REX 2X Long Tesla Daily Target ETF", mult: 2}
+    - {symbol: "TSLL", name: "Direxion Daily TSLA Bull 2X ETF", mult: 2}
+    - {symbol: "TSLG", name: "Leverage Shares 2X Long TSLA Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "TSLQ", name: "Tradr 2X Short TSLA Daily ETF", mult: -2}
+    - {symbol: "TSLZ", name: "T-REX 2X Inverse Tesla Daily Target ETF", mult: -2}
+
+- id: kr-kospi200
+  market: KR
+  underlying: 코스피200
+  longs:
+    - {symbol: "122630", name: "KODEX 레버리지", mult: 2}
+  shorts:
+    - {symbol: "252670", name: "KODEX 200선물인버스2X", mult: -2}
