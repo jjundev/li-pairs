@@ -14,6 +14,12 @@ describe('series', () => {
     expect(commonStart(b, a)).toEqual([b, [c(20260102, 2), c(20260105, 3)]]);
   });
 
+  it('commonStart 는 가운데 빠진 날을 양쪽에서 빼서 날짜를 맞춘다 (끝 꼬리는 남긴다)', () => {
+    const a = [c(20260101, 1), c(20260102, 2), c(20260105, 3), c(20260106, 4)];
+    const b = [c(20260101, 9), c(20260105, 8)];
+    expect(commonStart(a, b)).toEqual([[c(20260101, 1), c(20260105, 3), c(20260106, 4)], b]);
+  });
+
   it('commonStart 는 한쪽이 비면 그대로 둔다', () => {
     const a = [c(20260101, 1)];
     expect(commonStart(a, [])).toEqual([a, []]);

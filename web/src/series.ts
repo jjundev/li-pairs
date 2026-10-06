@@ -8,8 +8,14 @@ export function toTime(d: number): string {
 
 export function commonStart(a: Bar[], b: Bar[]): [Bar[], Bar[]] {
   if (!a.length || !b.length) return [a, b];
+  // 두 차트는 봉 순서로 동기화되므로 겹치는 구간은 양쪽에 다 있는 날만 남긴다.
+  // 끝 꼬리(한쪽만 갱신 실패로 하루 늦은 경우)는 순서를 흐트러뜨리지 않으니 남긴다.
   const start = Math.max(a[0][0], b[0][0]);
-  return [a.filter((x) => x[0] >= start), b.filter((x) => x[0] >= start)];
+  const end = Math.min(a[a.length - 1][0], b[b.length - 1][0]);
+  const inA = new Set(a.map((x) => x[0]));
+  const inB = new Set(b.map((x) => x[0]));
+  const keep = (x: Bar) => x[0] >= start && (x[0] > end || (inA.has(x[0]) && inB.has(x[0])));
+  return [a.filter(keep), b.filter(keep)];
 }
 
 export function normalize(bars: Bar[]): { time: string; value: number }[] {
