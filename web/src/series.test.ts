@@ -1,10 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { commonStart, normalize, shortHistoryNotice, toTime } from './series';
+import { commonStart, fmtPrice, normalize, shortHistoryNotice, toTime } from './series';
 import type { Bar } from './types';
 
 const c = (d: number, close: number): Bar => [d, close, close, close, close, 0];
 
 describe('series', () => {
+  it('fmtPrice 는 큰 값은 정수·천 단위 쉼표, 1 미만은 유효숫자 3자리', () => {
+    expect(fmtPrice(23201.98)).toBe('23,202');
+    expect(fmtPrice(10000000)).toBe('10,000,000');
+    expect(fmtPrice(164.27)).toBe('164.27');
+    expect(fmtPrice(0.000123456)).toBe('0.000123');
+    expect(fmtPrice(0)).toBe('0');
+    expect(fmtPrice(8.45e-8)).toBe('8.45×10⁻⁸');
+  });
+
   it('toTime', () => expect(toTime(20261006)).toBe('2026-10-06'));
 
   it('commonStart 는 늦게 상장한 쪽 첫날부터 둘 다 자른다', () => {

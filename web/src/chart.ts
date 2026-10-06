@@ -1,5 +1,5 @@
 import { CandlestickSeries, createChart, LineSeries, PriceScaleMode, type IChartApi } from 'lightweight-charts';
-import { normalize, toTime } from './series';
+import { fmtPrice, normalize, toTime } from './series';
 import type { Bar } from './types';
 
 const UP = '#e5484d';
@@ -16,6 +16,7 @@ function baseChart(host: HTMLElement, log: boolean): IChartApi {
     grid: { vertLines: { visible: false }, horzLines: { color: cssVar('--grid') } },
     rightPriceScale: { mode: log ? PriceScaleMode.Logarithmic : PriceScaleMode.Normal, borderVisible: false },
     timeScale: { borderVisible: false },
+    localization: { priceFormatter: fmtPrice },
   });
 }
 

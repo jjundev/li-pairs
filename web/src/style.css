@@ -36,6 +36,6 @@ body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
 .chart.big { height: 64dvh; }
 .chart .nodata { color: var(--muted); display: grid; place-items: center; height: 100%; }
 .tfbar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 6px; justify-content: center; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line); }
-.tfbar button { min-width: 44px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); font-size: 15px; }
+.tfbar button { min-width: 44px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); font-size: 15px; white-space: nowrap; }
 .tfbar button[aria-pressed="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 .tfbar .sep { width: 1px; background: var(--line); margin: 4px 2px; }

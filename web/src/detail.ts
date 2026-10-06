@@ -102,7 +102,7 @@ export async function renderDetail(
     el('p', { class: 'status' }, [legStatus(long), ' · ', legStatus(short), ` · 생성 ${fmtGenerated(generatedAt)}`]),
     ...(notice ? [el('p', { class: 'notice' }, [notice])] : []),
     ...charts,
-    el('nav', { class: 'tfbar' }, [...tfButtons, el('span', { class: 'sep' }), toggle('toggle-log', '로그', 'log'), toggle('toggle-overlay', '겹쳐보기', 'overlay')]),
+    el('nav', { class: 'tfbar' }, [...tfButtons, el('span', { class: 'sep' }), toggle('toggle-log', '로그', 'log'), toggle('toggle-overlay', '겹침', 'overlay')]),
   );
 
   const made: IChartApi[] = [];

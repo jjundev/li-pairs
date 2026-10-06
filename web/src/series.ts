@@ -18,6 +18,17 @@ export function commonStart(a: Bar[], b: Bar[]): [Bar[], Bar[]] {
   return [a.filter(keep), b.filter(keep)];
 }
 
+// 가격 축 숫자: 겹쳐보기는 1천만~0.0001까지 벌어지므로 자릿수를 값 크기에 맞춘다.
+export function fmtPrice(v: number): string {
+  const a = Math.abs(v);
+  if (a >= 1000) return Math.round(v).toLocaleString('en-US');
+  if (a >= 1 || a === 0) return String(Number(v.toFixed(2)));
+  if (a >= 1e-4) return String(Number(v.toPrecision(3)));
+  const [m, e] = v.toExponential(2).split('e');
+  const sup = e.replace('+', '').replace(/[-0-9]/g, (c) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(c)]);
+  return `${Number(m)}×10${sup}`;
+}
+
 export function normalize(bars: Bar[]): { time: string; value: number }[] {
   const base = bars[0]?.[4];
   if (!base) return [];
