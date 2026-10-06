@@ -1,0 +1,61 @@
+name: data-and-deploy
+
+on:
+  schedule:
+    - cron: "30 22 * * 1-5" # KST 07:30 화~토 (미국장 마감 후)
+    - cron: "30 7 * * 1-5" # KST 16:30 월~금 (국내장 마감 후)
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 이전 시세 복원 (수집 실패 시 유지용)
+        uses: actions/cache@v4
+        with:
+          path: web/public/data
+          key: data-${{ github.run_id }}
+          restore-keys: data-
+      - uses: astral-sh/setup-uv@v6
+      - name: 파이프라인 테스트
+        working-directory: pipeline
+        run: uv run pytest -q
+      - name: 시세 수집
+        working-directory: pipeline
+        run: uv run python -m lipairs.build --pairs pairs.yaml --out ../web/public/data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: 웹 테스트·빌드
+        working-directory: web
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
