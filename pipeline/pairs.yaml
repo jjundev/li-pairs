@@ -26,6 +26,7 @@
     - {symbol: "LOFF", name: "Direxion Daily SpaceX Bull 2X ETF", mult: 2}
   shorts:
     - {symbol: "SSPC", name: "Leverage Shares 2X Short SPCX Daily ETF", mult: -2}
+    - {symbol: "SPCG", name: "Tradr 2X Short SpaceX Daily", mult: -2}
 
 - id: us-semis
   market: US
@@ -60,11 +61,817 @@
   shorts:
     - {symbol: "TSLQ", name: "Tradr 2X Short TSLA Daily ETF", mult: -2}
     - {symbol: "TSLZ", name: "T-REX 2X Inverse Tesla Daily Target ETF", mult: -2}
+    - {symbol: "TSLS", name: "Direxion Daily TSLA Bear 1X ETF", mult: -1}
 
 - id: kr-kospi200
   market: KR
   underlying: 코스피200
   longs:
     - {symbol: "122630", name: "KODEX 레버리지", mult: 2}
+    - {symbol: "123320", name: "TIGER 레버리지", mult: 2}
+    - {symbol: "267770", name: "TIGER 200선물레버리지", mult: 2}
+    - {symbol: "252400", name: "RISE 200선물레버리지", mult: 2}
+    - {symbol: "304780", name: "HANARO 200선물레버리지", mult: 2}
+    - {symbol: "253150", name: "PLUS 200선물레버리지", mult: 2}
+    - {symbol: "152500", name: "ACE 레버리지", mult: 2}
+    - {symbol: "253250", name: "KIWOOM 200선물레버리지", mult: 2}
   shorts:
     - {symbol: "252670", name: "KODEX 200선물인버스2X", mult: -2}
+    - {symbol: "252710", name: "TIGER 200선물인버스2X", mult: -2}
+    - {symbol: "252420", name: "RISE 200선물인버스2X", mult: -2}
+    - {symbol: "253230", name: "KIWOOM 200선물인버스2X", mult: -2}
+    - {symbol: "253160", name: "PLUS 200선물인버스2X", mult: -2}
+    - {symbol: "114800", name: "KODEX 인버스", mult: -1}
+    - {symbol: "123310", name: "TIGER 인버스", mult: -1}
+    - {symbol: "145670", name: "ACE 인버스", mult: -1}
+    - {symbol: "252410", name: "RISE 200선물인버스", mult: -1}
+    - {symbol: "253240", name: "KIWOOM 200선물인버스", mult: -1}
+    - {symbol: "306520", name: "HANARO 200선물인버스", mult: -1}
+
+# ── 자동 발견 (M3) — lipairs.discover 후보를 검토해 추가 ──
+
+- id: kr-battery-top10
+  market: KR
+  underlying: "2차전지TOP10"
+  longs:
+    - {symbol: "412570", name: "TIGER 2차전지TOP10레버리지", mult: 2}
+  shorts:
+    - {symbol: "465350", name: "RISE 2차전지TOP10인버스(합성)", mult: -1}
+
+- id: kr-gold
+  market: KR
+  underlying: "골드선물"
+  longs:
+    - {symbol: "225130", name: "ACE 골드선물 레버리지(합성 H)", mult: 2}
+  shorts:
+    - {symbol: "280940", name: "KODEX 골드선물인버스(H)", mult: -1}
+
+- id: kr-us-sp500
+  market: KR
+  underlying: "미국S&P500"
+  longs:
+    - {symbol: "225040", name: "TIGER 미국S&P500레버리지(합성 H)", mult: 2}
+  shorts:
+    - {symbol: "225030", name: "TIGER 미국S&P500선물인버스(H)", mult: -1}
+
+- id: kr-us-nasdaq100
+  market: KR
+  underlying: "미국나스닥100"
+  longs:
+    - {symbol: "418660", name: "TIGER 미국나스닥100레버리지(합성)", mult: 2}
+    - {symbol: "409820", name: "KODEX 미국나스닥100레버리지(합성 H)", mult: 2}
+  shorts:
+    - {symbol: "409810", name: "KODEX 미국나스닥100선물인버스(H)", mult: -1}
+
+- id: kr-usd
+  market: KR
+  underlying: "미국달러선물"
+  longs:
+    - {symbol: "261250", name: "KODEX 미국달러선물레버리지", mult: 2}
+    - {symbol: "261110", name: "TIGER 미국달러선물레버리지", mult: 2}
+    - {symbol: "225800", name: "KIWOOM 미국달러선물레버리지", mult: 2}
+  shorts:
+    - {symbol: "261260", name: "KODEX 미국달러선물인버스2X", mult: -2}
+    - {symbol: "261120", name: "TIGER 미국달러선물인버스2X", mult: -2}
+    - {symbol: "230480", name: "KIWOOM 미국달러선물인버스2X", mult: -2}
+    - {symbol: "261270", name: "KODEX 미국달러선물인버스", mult: -1}
+    - {symbol: "139660", name: "KIWOOM 미국달러선물인버스", mult: -1}
+    - {symbol: "469530", name: "RISE 미국달러선물인버스", mult: -1}
+
+- id: kr-us-bigtech-top7
+  market: KR
+  underlying: "미국빅테크TOP7 Plus"
+  longs:
+    - {symbol: "465610", name: "ACE 미국빅테크TOP7 Plus레버리지(합성)", mult: 2}
+  shorts:
+    - {symbol: "465620", name: "ACE 미국빅테크TOP7 Plus인버스(합성)", mult: -1}
+
+- id: kr-us-longbond
+  market: KR
+  underlying: "미국장기국채선물"
+  longs:
+    - {symbol: "267490", name: "RISE 미국장기국채선물레버리지(합성 H)", mult: 2}
+  shorts:
+    - {symbol: "267450", name: "RISE 미국장기국채선물인버스(H)", mult: -1}
+
+- id: kr-topix
+  market: KR
+  underlying: "일본TOPIX"
+  longs:
+    - {symbol: "196030", name: "ACE 일본TOPIX레버리지(H)", mult: 2}
+  shorts:
+    - {symbol: "205720", name: "ACE 일본TOPIX인버스(합성 H)", mult: -1}
+
+- id: kr-csi300
+  market: KR
+  underlying: "차이나CSI300"
+  longs:
+    - {symbol: "204480", name: "TIGER 차이나CSI300레버리지(합성)", mult: 2}
+  shorts:
+    - {symbol: "217780", name: "TIGER 차이나CSI300인버스(합성)", mult: -1}
+
+- id: kr-china-h
+  market: KR
+  underlying: "차이나H"
+  longs:
+    - {symbol: "204450", name: "KODEX 차이나H레버리지(H)", mult: 2}
+  shorts:
+    - {symbol: "291680", name: "RISE 차이나H선물인버스(H)", mult: -1}
+
+- id: kr-kosdaq150
+  market: KR
+  underlying: "코스닥150"
+  longs:
+    - {symbol: "233740", name: "KODEX 코스닥150레버리지", mult: 2}
+    - {symbol: "233160", name: "TIGER 코스닥150 레버리지", mult: 2}
+    - {symbol: "278240", name: "RISE 코스닥150선물레버리지", mult: 2}
+    - {symbol: "291630", name: "KIWOOM 코스닥150선물레버리지", mult: 2}
+    - {symbol: "306530", name: "HANARO 코스닥150선물레버리지", mult: 2}
+  shorts:
+    - {symbol: "251340", name: "KODEX 코스닥150선물인버스", mult: -1}
+    - {symbol: "250780", name: "TIGER 코스닥150선물인버스", mult: -1}
+    - {symbol: "275750", name: "RISE 코스닥150선물인버스", mult: -1}
+    - {symbol: "291620", name: "KIWOOM 코스닥150선물인버스", mult: -1}
+
+- id: us-20-year-treasury
+  market: US
+  underlying: "20+ YEAR TREASURY"
+  longs:
+    - {symbol: "TMF", name: "Direxion Daily 20+ Year Treasury Bull 3X ETF", mult: 3}
+    - {symbol: "UBT", name: "ProShares Ultra 20+ Year Treasury", mult: 2}
+  shorts:
+    - {symbol: "TMV", name: "Direxion Daily 20+ Year Treasury Bear 3X ETF", mult: -3}
+    - {symbol: "TBF", name: "ProShares Short 20+ Year Treasury", mult: -1}
+
+- id: us-7-10-year-treasury
+  market: US
+  underlying: "7-10 YEAR TREASURY"
+  longs:
+    - {symbol: "TYD", name: "Direxion Daily 7-10 Year Treasury Bull 3X ETF", mult: 3}
+    - {symbol: "UST", name: "ProShares Ultra 7-10 Year Treasury", mult: 2}
+  shorts:
+    - {symbol: "TYO", name: "Direxion Daily 7-10 Year Treasury Bear 3X ETF", mult: -3}
+
+- id: us-aapl
+  market: US
+  underlying: "AAPL"
+  longs:
+    - {symbol: "AAPU", name: "Direxion Daily AAPL Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "AAPD", name: "Direxion Daily AAPL Bear 1X ETF", mult: -1}
+
+- id: us-ai-and-big-data
+  market: US
+  underlying: "AI AND BIG DATA"
+  longs:
+    - {symbol: "AIBU", name: "Direxion Daily AI and Big Data Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "AIBD", name: "Direxion Daily AI and Big Data Bear 2X ETF", mult: -2}
+
+- id: us-amd
+  market: US
+  underlying: "AMD"
+  longs:
+    - {symbol: "AMDG", name: "Leverage Shares 2X Long AMD Daily ETF", mult: 2}
+    - {symbol: "AMUU", name: "Direxion Daily AMD Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "DAMD", name: "Defiance Daily Target 2X Short AMD ETF", mult: -2}
+    - {symbol: "AMDD", name: "Direxion Daily AMD Bear 1X ETF", mult: -1}
+
+- id: us-amzn
+  market: US
+  underlying: "AMZN"
+  longs:
+    - {symbol: "AMZU", name: "Direxion Daily AMZN Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "AMZO", name: "Tradr 2X Short AMZN Daily ", mult: -2}
+    - {symbol: "AMZD", name: "Direxion Daily AMZN Bear 1X ETF", mult: -1}
+
+- id: us-apld
+  market: US
+  underlying: "APLD"
+  longs:
+    - {symbol: "APLX", name: "Tradr 2X Long APLD Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "APLZ", name: "Tradr 2X Short APLD Daily ", mult: -2}
+
+- id: us-asts
+  market: US
+  underlying: "ASTS"
+  longs:
+    - {symbol: "ASTG", name: "Leverage Shares 2X Long ASTS Daily ETF", mult: 2}
+    - {symbol: "ASTX", name: "Tradr 2X Long ASTS Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "ASTN", name: "Defiance Daily Target 2X Short ASTS ETF", mult: -2}
+
+- id: us-avgo
+  market: US
+  underlying: "AVGO"
+  longs:
+    - {symbol: "AVGG", name: "Leverage Shares 2X Long AVGO Daily ETF", mult: 2}
+    - {symbol: "AVL", name: "Direxion Daily AVGO Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "AVS", name: "Direxion Daily AVGO Bear 1X ETF", mult: -1}
+
+- id: us-be
+  market: US
+  underlying: "BE"
+  longs:
+    - {symbol: "BEX", name: "Tradr 2X Long BE Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "BEZ", name: "Tradr 2X Short BE Daily ET", mult: -2}
+
+- id: us-bitcoin
+  market: US
+  underlying: "BITCOIN"
+  longs:
+    - {symbol: "BTCL", name: "T-REX 2X Long Bitcoin Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "BTCZ", name: "T-REX 2X Inverse Bitcoin Daily Target ETF", mult: -2}
+    - {symbol: "BITI", name: "ProShares Short Bitcoin ETF", mult: -1}
+
+- id: us-bloomberg-crude-oil
+  market: US
+  underlying: "BLOOMBERG CRUDE OIL"
+  longs:
+    - {symbol: "UCO", name: "ProShares Ultra Bloomberg Crude Oil", mult: 2}
+  shorts:
+    - {symbol: "SCO", name: "ProShares UltraShort Bloomberg Crude Oil", mult: -2}
+
+- id: us-bloomberg-natural-gas
+  market: US
+  underlying: "BLOOMBERG NATURAL GAS"
+  longs:
+    - {symbol: "BOIL", name: "ProShares Ultra Bloomberg Natural Gas", mult: 2}
+  shorts:
+    - {symbol: "KOLD", name: "ProShares UltraShort Bloomberg Natural Gas", mult: -2}
+
+- id: us-bmnr
+  market: US
+  underlying: "BMNR"
+  longs:
+    - {symbol: "BMNG", name: "Leverage Shares 2X Long BMNR Daily ETF", mult: 2}
+    - {symbol: "BMNU", name: "T-REX 2X Long BMNR Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "BMNZ", name: "Defiance Daily Target 2X Short BMNR ETF", mult: -2}
+
+- id: us-cbrs
+  market: US
+  underlying: "CBRS"
+  longs:
+    - {symbol: "CBRG", name: "Leverage Shares 2X Long CBRS Daily ETF", mult: 2}
+    - {symbol: "CBRX", name: "Tradr 2X Long CBRS Daily E", mult: 2}
+  shorts:
+    - {symbol: "CBRZ", name: "Tradr 2X Short CBRS Daily ", mult: -2}
+
+- id: us-consumer-discretionary
+  market: US
+  underlying: "CONSUMER DISCRETIONARY"
+  longs:
+    - {symbol: "UCC", name: "ProShares Ultra Consumer Discretionary", mult: 2}
+  shorts:
+    - {symbol: "SCC", name: "ProShares UltraShort Consumer Discretionary", mult: -2}
+
+- id: us-consumer-staples
+  market: US
+  underlying: "CONSUMER STAPLES"
+  longs:
+    - {symbol: "UGE", name: "ProShares Ultra Consumer Staples", mult: 2}
+  shorts:
+    - {symbol: "SZK", name: "ProShares UltraShort Consumer Staples", mult: -2}
+
+- id: us-crcl
+  market: US
+  underlying: "CRCL"
+  longs:
+    - {symbol: "CCUP", name: "T-REX 2X Long CRCL Daily Target ETF", mult: 2}
+    - {symbol: "CRCG", name: "Leverage Shares 2X Long CRCL Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "CRCD", name: "T-REX 2X Inverse CRCL Daily Target ETF", mult: -2}
+
+- id: us-crwv
+  market: US
+  underlying: "CRWV"
+  longs:
+    - {symbol: "CRWG", name: "Leverage Shares 2X Long CRWV Daily ETF", mult: 2}
+    - {symbol: "CRWU", name: "T-REX 2X Long CRWV Daily Target ETF", mult: 2}
+    - {symbol: "CWVX", name: "Tradr 2X Long CRWV Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "CORD", name: "T-REX 2X Inverse CRWV Daily Target ETF", mult: -2}
+
+- id: us-csco
+  market: US
+  underlying: "CSCO"
+  longs:
+    - {symbol: "CSCL", name: "Direxion Daily CSCO Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "CSCS", name: "Direxion Daily CSCO Bear 1X ETF", mult: -1}
+
+- id: us-dow-jones-internet
+  market: US
+  underlying: "DOW JONES INTERNET"
+  longs:
+    - {symbol: "WEBL", name: "Direxion Daily Dow Jones Internet Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "WEBS", name: "Direxion Daily Dow Jones Internet Bear 3X ETF", mult: -3}
+
+- id: us-dow30
+  market: US
+  underlying: "DOW30"
+  longs:
+    - {symbol: "DDM", name: "ProShares Ultra Dow30", mult: 2}
+    - {symbol: "UDOW", name: "ProShares UltraPro Dow30", mult: 3}
+  shorts:
+    - {symbol: "DXD", name: "ProShares UltraShort Dow30", mult: -2}
+    - {symbol: "DOG", name: "ProShares Short Dow30", mult: -1}
+
+- id: us-energy-dj
+  market: US
+  underlying: "다우존스 미국 석유·가스"
+  longs:
+    - {symbol: "DIG", name: "ProShares Ultra Energy", mult: 2}
+  shorts:
+    - {symbol: "DUG", name: "ProShares UltraShort Energy", mult: -2}
+
+- id: us-energy-xle
+  market: US
+  underlying: "에너지 섹터 (XLE)"
+  longs:
+    - {symbol: "ERX", name: "Direxion Daily Energy Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "ERY", name: "Direxion Daily Energy Bear 2X ETF", mult: -2}
+
+- id: us-ether
+  market: US
+  underlying: "ETHER"
+  longs:
+    - {symbol: "ETU", name: "T-REX 2X Long Ether Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "SETH", name: "ProShares Short Ether ETF", mult: -1}
+
+- id: us-euro
+  market: US
+  underlying: "EURO"
+  longs:
+    - {symbol: "ULE", name: "ProShares Ultra Euro", mult: 2}
+  shorts:
+    - {symbol: "EUO", name: "ProShares UltraShort Euro", mult: -2}
+
+- id: us-financial
+  market: US
+  underlying: "FINANCIAL"
+  longs:
+    - {symbol: "FAS", name: "Direxion Daily Financial Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "FAZ", name: "Direxion Daily Financial Bear 3X ETF", mult: -3}
+
+- id: us-financials
+  market: US
+  underlying: "FINANCIALS"
+  longs:
+    - {symbol: "UYG", name: "ProShares Ultra Financials", mult: 2}
+  shorts:
+    - {symbol: "SKF", name: "ProShares UltraShort Financials", mult: -2}
+    - {symbol: "SEF", name: "ProShares Short Financials", mult: -1}
+
+- id: us-ftse-china
+  market: US
+  underlying: "FTSE China 50"
+  longs:
+    - {symbol: "YINN", name: "Direxion Daily FTSE China Bull 3X ETF", mult: 3}
+    - {symbol: "XPP", name: "ProShares Ultra FTSE China 50", mult: 2}
+  shorts:
+    - {symbol: "YANG", name: "Direxion Daily FTSE China Bear 3X ETF", mult: -3}
+    - {symbol: "YXI", name: "ProShares Short FTSE China 50", mult: -1}
+    - {symbol: "FXP", name: "ProShares UltraShort FTSE China 50", mult: -2}
+
+- id: us-ftse-europe
+  market: US
+  underlying: "FTSE EUROPE"
+  longs:
+    - {symbol: "UPV", name: "ProShares Ultra FTSE Europe", mult: 2}
+    - {symbol: "EURL", name: "Direxion Daily FTSE Europe Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "EPV", name: "ProShares UltraShort FTSE Europe ETF", mult: -2}
+
+- id: us-gold
+  market: US
+  underlying: "GOLD"
+  longs:
+    - {symbol: "UGL", name: "ProShares Ultra Gold", mult: 2}
+  shorts:
+    - {symbol: "GLL", name: "ProShares UltraShort Gold", mult: -2}
+
+- id: us-gold-miners-index
+  market: US
+  underlying: "GOLD MINERS INDEX"
+  longs:
+    - {symbol: "NUGT", name: "Direxion Daily Gold Miners Index Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "DUST", name: "Direxion Daily Gold Miners Index Bear 2X ETF", mult: -2}
+
+- id: us-googl
+  market: US
+  underlying: "GOOGL"
+  longs:
+    - {symbol: "GGLL", name: "Direxion Daily GOOGL Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "GGLS", name: "Direxion Daily GOOGL Bear 1X ETF", mult: -1}
+
+- id: us-health-care
+  market: US
+  underlying: "HEALTH CARE"
+  longs:
+    - {symbol: "RXL", name: "ProShares Ultra Health Care", mult: 2}
+  shorts:
+    - {symbol: "RXD", name: "ProShares UltraShort Health Care", mult: -2}
+
+- id: us-high-yield
+  market: US
+  underlying: "HIGH YIELD"
+  longs:
+    - {symbol: "UJB", name: "ProShares Ultra High Yield ETF", mult: 2}
+  shorts:
+    - {symbol: "SJB", name: "ProShares Short High Yield", mult: -1}
+
+- id: us-industrials
+  market: US
+  underlying: "INDUSTRIALS"
+  longs:
+    - {symbol: "UXI", name: "ProShares Ultra Industrials", mult: 2}
+  shorts:
+    - {symbol: "SIJ", name: "ProShares UltraShort Industrials", mult: -2}
+
+- id: us-ionq
+  market: US
+  underlying: "IONQ"
+  longs:
+    - {symbol: "IONX", name: "Defiance Daily Target 2X Long IONQ ETF", mult: 2}
+  shorts:
+    - {symbol: "IONZ", name: "Defiance Daily Target 2X Short IONQ ETF", mult: -2}
+
+- id: us-iren
+  market: US
+  underlying: "IREN"
+  longs:
+    - {symbol: "IRE", name: "Defiance Daily Target 2X Long IREN ETF", mult: 2}
+    - {symbol: "IREG", name: "Leverage Shares 2X Long IREN Daily ETF", mult: 2}
+    - {symbol: "IREX", name: "Tradr 2X Long IREN Daily E", mult: 2}
+  shorts:
+    - {symbol: "IREZ", name: "Tradr 2X Short IREN Daily ", mult: -2}
+
+- id: us-junior-gold-miners-index
+  market: US
+  underlying: "JUNIOR GOLD MINERS INDEX"
+  longs:
+    - {symbol: "JNUG", name: "Direxion Daily Junior Gold Miners Index Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "JDST", name: "Direxion Daily Junior Gold Miners Index Bear 2X ETF", mult: -2}
+
+- id: us-lite
+  market: US
+  underlying: "LITE"
+  longs:
+    - {symbol: "LITG", name: "Leverage Shares 2X Long LITE Daily ETF", mult: 2}
+    - {symbol: "LITX", name: "Tradr 2X Long LITE Daily E", mult: 2}
+  shorts:
+    - {symbol: "LITZ", name: "Tradr 2X Short LITE Daily ", mult: -2}
+
+- id: us-magnificent-7
+  market: US
+  underlying: "MAGNIFICENT 7"
+  longs:
+    - {symbol: "QQQU", name: "Direxion Daily Magnificent 7 Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "QQQD", name: "Direxion Daily Magnificent 7 Bear 1X ETF", mult: -1}
+
+- id: us-materials
+  market: US
+  underlying: "MATERIALS"
+  longs:
+    - {symbol: "UYM", name: "ProShares Ultra Materials", mult: 2}
+  shorts:
+    - {symbol: "SMN", name: "ProShares UltraShort Materials", mult: -2}
+
+- id: us-meta
+  market: US
+  underlying: "META"
+  longs:
+    - {symbol: "METU", name: "Direxion Daily META Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "METD", name: "Direxion Daily META Bear 1X ETF", mult: -1}
+
+- id: us-midcap400
+  market: US
+  underlying: "MIDCAP400"
+  longs:
+    - {symbol: "MVV", name: "ProShares Ultra MidCap400", mult: 2}
+  shorts:
+    - {symbol: "MZZ", name: "ProShares UltraShort MidCap400", mult: -2}
+    - {symbol: "MYY", name: "ProShares Short MidCap400", mult: -1}
+
+- id: us-msci-brazil-capped
+  market: US
+  underlying: "MSCI BRAZIL CAPPED"
+  longs:
+    - {symbol: "UBR", name: "ProShares Ultra MSCI Brazil Capped", mult: 2}
+  shorts:
+    - {symbol: "BZQ", name: "ProShares UltraShort MSCI Brazil Capped", mult: -2}
+
+- id: us-msci-eafe
+  market: US
+  underlying: "MSCI EAFE"
+  longs:
+    - {symbol: "EFO", name: "ProShares Ultra MSCI EAFE", mult: 2}
+  shorts:
+    - {symbol: "EFU", name: "ProShares UltraShort MSCI EAFE", mult: -2}
+    - {symbol: "EFZ", name: "ProShares Short MSCI EAFE", mult: -1}
+
+- id: us-msci-emerging-markets
+  market: US
+  underlying: "MSCI EMERGING MARKETS"
+  longs:
+    - {symbol: "EDC", name: "Direxion Daily MSCI Emerging Markets Bull 3X ETF", mult: 3}
+    - {symbol: "EET", name: "ProShares Ultra MSCI Emerging Markets", mult: 2}
+  shorts:
+    - {symbol: "EDZ", name: "Direxion Daily MSCI Emerging Markets Bear 3X ETF", mult: -3}
+    - {symbol: "EEV", name: "ProShares UltraShort MSCI Emerging Markets", mult: -2}
+    - {symbol: "EUM", name: "ProShares Short MSCI Emerging Markets", mult: -1}
+
+- id: us-msci-japan
+  market: US
+  underlying: "MSCI JAPAN"
+  longs:
+    - {symbol: "EZJ", name: "ProShares Ultra MSCI Japan", mult: 2}
+  shorts:
+    - {symbol: "EWV", name: "ProShares UltraShort MSCI Japan", mult: -2}
+
+- id: us-msft
+  market: US
+  underlying: "MSFT"
+  longs:
+    - {symbol: "MSFU", name: "Direxion Daily MSFT Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "MSFD", name: "Direxion Daily MSFT Bear 1X ETF", mult: -1}
+
+- id: us-mstr
+  market: US
+  underlying: "MSTR"
+  longs:
+    - {symbol: "MSTU", name: "T-Rex 2X Long MSTR Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "MSTZ", name: "T-Rex 2X Inverse MSTR Daily Target ETF", mult: -2}
+
+- id: us-mu
+  market: US
+  underlying: "MU"
+  longs:
+    - {symbol: "MUU", name: "Direxion Daily MU Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "MUD", name: "Direxion Daily MU Bear 1X ETF", mult: -1}
+
+- id: us-nasdaq-biotechnology
+  market: US
+  underlying: "NASDAQ BIOTECHNOLOGY"
+  longs:
+    - {symbol: "BIB", name: "ProShares Ultra Nasdaq Biotechnology", mult: 2}
+  shorts:
+    - {symbol: "BIS", name: "ProShares UltraShort Nasdaq Biotechnology", mult: -2}
+
+- id: us-nbis
+  market: US
+  underlying: "NBIS"
+  longs:
+    - {symbol: "NEBX", name: "Tradr 2X Long NBIS Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "NBIZ", name: "Tradr 2X Short NBIS Daily ", mult: -2}
+
+- id: us-nflx
+  market: US
+  underlying: "NFLX"
+  longs:
+    - {symbol: "NFLU", name: "T-Rex 2X Long NFLX Daily Target ETF", mult: 2}
+    - {symbol: "NFXL", name: "Direxion Daily NFLX Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "NFXS", name: "Direxion Daily NFLX Bear 1X ETF", mult: -1}
+
+- id: us-nvda
+  market: US
+  underlying: "NVDA"
+  longs:
+    - {symbol: "NVDG", name: "Leverage Shares 2X Long NVDA Daily ETF", mult: 2}
+    - {symbol: "NVDU", name: "Direxion Daily NVDA Bull 2X ETF", mult: 2}
+    - {symbol: "NVDX", name: "T-Rex 2X Long NVIDIA Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "NVDQ", name: "T-Rex 2X Inverse NVIDIA Daily Target E", mult: -2}
+    - {symbol: "NVDD", name: "Direxion Daily NVDA Bear 1X ETF", mult: -1}
+    - {symbol: "NVDS", name: "Tradr 1.5X Short NVDA Daily ETF", mult: -1.5}
+
+- id: us-orcl
+  market: US
+  underlying: "ORCL"
+  longs:
+    - {symbol: "ORCU", name: "Direxion Daily ORCL Bull 2X ETF", mult: 2}
+    - {symbol: "ORCX", name: "Defiance Daily Target 2X Long ORCL ETF", mult: 2}
+  shorts:
+    - {symbol: "ORCS", name: "Direxion Daily ORCL Bear 1X ETF", mult: -1}
+
+- id: us-panw
+  market: US
+  underlying: "PANW"
+  longs:
+    - {symbol: "PALU", name: "Direxion Daily PANW Bull 2X ETF", mult: 2}
+    - {symbol: "PANG", name: "Leverage Shares 2X Long PANW Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "PALD", name: "Direxion Daily PANW Bear 1X ETF", mult: -1}
+
+- id: us-pltr
+  market: US
+  underlying: "PLTR"
+  longs:
+    - {symbol: "PLTG", name: "Leverage Shares 2X Long PLTR Daily ETF", mult: 2}
+    - {symbol: "PLTU", name: "Direxion Daily PLTR Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "PLTD", name: "Direxion Daily PLTR Bear 1X ETF", mult: -1}
+
+- id: us-qcom
+  market: US
+  underlying: "QCOM"
+  longs:
+    - {symbol: "QCMU", name: "Direxion Daily QCOM Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "QCMD", name: "Direxion Daily QCOM Bear 1X ETF", mult: -1}
+
+- id: us-qqq
+  market: US
+  underlying: "QQQ"
+  longs:
+    - {symbol: "TQQQ", name: "ProShares UltraPro QQQ", mult: 3}
+    - {symbol: "QLD", name: "ProShares Ultra QQQ", mult: 2}
+  shorts:
+    - {symbol: "SQQQ", name: "ProShares UltraPro Short QQQ", mult: -3}
+    - {symbol: "PSQ", name: "ProShares Short QQQ", mult: -1}
+    - {symbol: "QID", name: "ProShares UltraShort QQQ", mult: -2}
+
+- id: us-qqq-mega
+  market: US
+  underlying: "QQQ MEGA"
+  longs:
+    - {symbol: "QQUP", name: "ProShares Ultra QQQ Mega", mult: 2}
+  shorts:
+    - {symbol: "QQDN", name: "ProShares UltraShort QQQ Mega", mult: -2}
+
+- id: us-realestate-dj
+  market: US
+  underlying: "다우존스 미국 부동산"
+  longs:
+    - {symbol: "URE", name: "ProShares Ultra Real Estate", mult: 2}
+  shorts:
+    - {symbol: "SRS", name: "ProShares UltraShort Real Estate", mult: -2}
+    - {symbol: "REK", name: "ProShares Short Real Estate", mult: -1}
+
+- id: us-realestate-xlre
+  market: US
+  underlying: "부동산 섹터 (XLRE)"
+  longs:
+    - {symbol: "DRN", name: "Direxion Daily Real Estate Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "DRV", name: "Direxion Daily Real Estate Bear 3X ETF", mult: -3}
+
+- id: us-russell2000
+  market: US
+  underlying: "러셀2000"
+  longs:
+    - {symbol: "URTY", name: "ProShares UltraPro Russell2000", mult: 3}
+    - {symbol: "TNA", name: "Direxion Daily Small Cap Bull 3X ETF", mult: 3}
+    - {symbol: "UWM", name: "ProShares Ultra Russell2000", mult: 2}
+  shorts:
+    - {symbol: "SRTY", name: "ProShares UltraPro Short Russell2000", mult: -3}
+    - {symbol: "TZA", name: "Direxion Daily Small Cap Bear 3X ETF", mult: -3}
+    - {symbol: "RWM", name: "ProShares Short Russell2000", mult: -1}
+    - {symbol: "TWM", name: "ProShares UltraShort Russell2000", mult: -2}
+
+- id: us-sp500
+  market: US
+  underlying: "S&P 500"
+  longs:
+    - {symbol: "UPRO", name: "ProShares UltraPro S&P 500", mult: 3}
+    - {symbol: "SPXL", name: "Direxion Daily S&P 500 Bull 3X ETF", mult: 3}
+    - {symbol: "SPUU", name: "Direxion Daily S&P 500 Bull 2X ETF", mult: 2}
+    - {symbol: "SSO", name: "ProShares Ultra S&P500", mult: 2}
+  shorts:
+    - {symbol: "SPXS", name: "Direxion Daily S&P 500 Bear 3X ETF", mult: -3}
+    - {symbol: "SPXU", name: "ProShares UltraPro Short S&P500", mult: -3}
+    - {symbol: "SPDN", name: "Direxion Daily S&P 500 Bear 1X ETF", mult: -1}
+    - {symbol: "SDS", name: "ProShares UltraShort S&P500", mult: -2}
+    - {symbol: "SH", name: "ProShares Short S&P500", mult: -1}
+
+- id: us-s-p-500-high-beta
+  market: US
+  underlying: "S&P 500 HIGH BETA"
+  longs:
+    - {symbol: "HIBL", name: "Direxion Daily S&P 500 High Beta Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "HIBS", name: "Direxion Daily S&P 500 High Beta Bear 3X ETF", mult: -3}
+
+- id: us-s-p-biotech
+  market: US
+  underlying: "S&P BIOTECH"
+  longs:
+    - {symbol: "LABU", name: "Direxion Daily S&P Biotech Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "LABD", name: "Direxion Daily S&P Biotech Bear 3X ETF", mult: -3}
+
+- id: us-s-p-oil-gas-exp-prod
+  market: US
+  underlying: "S&P OIL & GAS EXP. & PROD."
+  longs:
+    - {symbol: "GUSH", name: "Direxion Daily S&P Oil & Gas Exp. & Prod. Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "DRIP", name: "Direxion Daily S&P Oil & Gas Exp. & Prod. Bear 2X ETF", mult: -2}
+
+- id: us-silver
+  market: US
+  underlying: "SILVER"
+  longs:
+    - {symbol: "AGQ", name: "ProShares Ultra Silver", mult: 2}
+  shorts:
+    - {symbol: "ZSL", name: "ProShares UltraShort Silver", mult: -2}
+
+- id: us-skhynix-adr
+  market: US
+  underlying: "SK하이닉스 (미국 상장 ETF)"
+  longs:
+    - {symbol: "SKHX", name: "Leverage Shares 2X Long SK Hynix Daily ETF", mult: 2}
+  shorts:
+    - {symbol: "SKHZ", name: "Leverage Shares 1X Short SK Hynix Daily ETF", mult: -1}
+
+- id: us-smallcap600
+  market: US
+  underlying: "SMALLCAP600"
+  longs:
+    - {symbol: "SAA", name: "ProShares Ultra SmallCap600", mult: 2}
+  shorts:
+    - {symbol: "SDD", name: "ProShares UltraShort SmallCap600", mult: -2}
+    - {symbol: "SBB", name: "ProShares Short SmallCap600", mult: -1}
+
+- id: us-smr
+  market: US
+  underlying: "SMR"
+  longs:
+    - {symbol: "SMU", name: "Tradr 2X Long SMR Daily ETF", mult: 2}
+    - {symbol: "SMUP", name: "T-REX 2X Long SMR Daily Target ETF", mult: 2}
+  shorts:
+    - {symbol: "SMZ", name: "Tradr 2X Short SMR Daily E", mult: -2}
+
+- id: us-sndk
+  market: US
+  underlying: "SNDK"
+  longs:
+    - {symbol: "SNDG", name: "Leverage Shares 2X Long SNDK Daily ETF", mult: 2}
+    - {symbol: "SNDU", name: "T-REX 2X Long SNDK Daily Target ETF", mult: 2}
+    - {symbol: "SNXX", name: "Tradr 2X Long SNDK Daily E", mult: 2}
+  shorts:
+    - {symbol: "SNDQ", name: "Tradr 2X Short SNDK Daily ", mult: -2}
+
+- id: us-semis-dj
+  market: US
+  underlying: "다우존스 미국 반도체"
+  longs:
+    - {symbol: "USD", name: "ProShares Ultra Semiconductors", mult: 2}
+  shorts:
+    - {symbol: "SSG", name: "ProShares UltraShort Semiconductors", mult: -2}
+
+- id: us-tech-dj
+  market: US
+  underlying: "다우존스 미국 기술"
+  longs:
+    - {symbol: "ROM", name: "ProShares Ultra Technology", mult: 2}
+  shorts:
+    - {symbol: "REW", name: "ProShares UltraShort Technology", mult: -2}
+
+- id: us-tech-xlk
+  market: US
+  underlying: "기술 섹터 (XLK)"
+  longs:
+    - {symbol: "TECL", name: "Direxion Daily Technology Bull 3X ETF", mult: 3}
+  shorts:
+    - {symbol: "TECS", name: "Direxion Daily Technology Bear 3X ETF", mult: -3}
+
+- id: us-tsm
+  market: US
+  underlying: "TSM"
+  longs:
+    - {symbol: "TSMG", name: "Leverage Shares 2X Long TSM Daily ETF", mult: 2}
+    - {symbol: "TSMX", name: "Direxion Daily TSM Bull 2X ETF", mult: 2}
+  shorts:
+    - {symbol: "STSM", name: "Defiance Daily Target 2X Short TSM ETF", mult: -2}
+    - {symbol: "TSMZ", name: "Direxion Daily TSM Bear 1X ETF", mult: -1}
+
+- id: us-utilities
+  market: US
+  underlying: "UTILITIES"
+  longs:
+    - {symbol: "UPW", name: "ProShares Ultra Utilities", mult: 2}
+  shorts:
+    - {symbol: "SDP", name: "ProShares UltraShort Utilities", mult: -2}
