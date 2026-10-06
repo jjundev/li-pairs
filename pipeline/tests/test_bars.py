@@ -43,3 +43,27 @@ def test_http_get_raises_fetch_error_after_retries():
 
     with pytest.raises(FetchError):
         http_get("https://x", retries=2, opener=opener, sleep=lambda s: None)
+
+
+def test_http_get_retries_incomplete_read():
+    import http.client
+
+    calls = []
+
+    def opener(req, timeout):
+        calls.append(1)
+        if len(calls) < 2:
+            raise http.client.IncompleteRead(b"partial")
+        return io.BytesIO(b"ok")
+
+    assert http_get("https://x", opener=opener, sleep=lambda s: None) == b"ok"
+
+
+def test_http_get_wraps_http_exception_as_fetch_error():
+    import http.client
+
+    def opener(req, timeout):
+        raise http.client.RemoteDisconnected("bye")
+
+    with pytest.raises(FetchError):
+        http_get("https://x", retries=1, opener=opener, sleep=lambda s: None)

@@ -1,4 +1,5 @@
 """공통: 일봉 한 줄 = [yyyymmdd, open, high, low, close, volume]."""
+import http.client
 import time
 import urllib.error
 import urllib.request
@@ -23,7 +24,7 @@ def http_get(url, *, headers=None, retries=3, backoff=2.0, opener=urllib.request
         try:
             with opener(req, timeout=20) as r:
                 return r.read()
-        except (urllib.error.URLError, TimeoutError, OSError) as e:
+        except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException) as e:
             last = e
             if attempt < retries - 1:
                 sleep(backoff * (attempt + 1))
