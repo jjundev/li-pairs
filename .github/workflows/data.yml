@@ -9,6 +9,7 @@ on:
     branches: [main]
 
 permissions:
+  actions: write # 예약 실행 유지용
   contents: read
   pages: write
   id-token: write
@@ -46,6 +47,11 @@ jobs:
           npm ci
           npm test
           npm run build
+      - name: 예약 실행 유지 (공개 저장소는 60일 무활동이면 예약이 꺼진다)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/data.yml/enable"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
