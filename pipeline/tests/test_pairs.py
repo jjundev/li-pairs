@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 
 import pytest
@@ -75,3 +76,14 @@ def test_repo_pairs_yaml_links_three_indexes():
     pairs = load_pairs(Path(__file__).parents[1] / "pairs.yaml")
     assert {p.id: p.index.symbol for p in pairs if p.index} == {
         "kr-kospi200": "KPI200", "us-semis": "^SOX", "us-qqq": "^NDX"}
+
+
+def test_index_symbols_that_collide_as_file_names_are_rejected():
+    data = [copy.deepcopy(GOOD[0]), copy.deepcopy(GOOD[0])]
+    data[1]["id"] = "other"
+    data[0]["index"] = {"symbol": "^SOX", "name": "a"}
+    data[1]["index"] = {"symbol": "SOX", "name": "b"}
+    with pytest.raises(PairsError, match="파일 이름"):
+        parse_pairs(data)
+    data[1]["index"] = {"symbol": "^SOX", "name": "b"}
+    assert [p.index.symbol for p in parse_pairs(data)] == ["^SOX", "^SOX"]

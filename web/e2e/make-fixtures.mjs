@@ -33,6 +33,7 @@ const files = {
   KR_L1: ['KR', 'KRW', series(600, 10000, 1)],
   KR_L2: ['KR', 'KRW', series(600, 12000, 1)],
   KR_S1: ['KR', 'KRW', series(400, 8000, -1)],
+  KR_S2: ['KR', 'KRW', series(250, 8000, -1)],
   KR_IDX_T: ['KR', 'KRW', series(600, 300, 1)],
   US_NEWL: ['US', 'USD', series(30, 20, 1)],
   US_NEWS: ['US', 'USD', series(30, 20, -1)],
@@ -49,6 +50,8 @@ writeFileSync(new URL('pairs.json', out), JSON.stringify({
   generatedAt: '2026-10-06T16:30+09:00',
   pairs: [
     { id: 'kr-test', market: 'KR', underlying: '테스트전자', longs: [leg('KR', 'L1', 2), leg('KR', 'L2', 2)], shorts: [leg('KR', 'S1', -2)],
+      index: { symbol: 'T', name: '테스트지수', file: 'ohlc/KR_IDX_T.json', available: true, stale: false, lastDate: 20261002 } },
+    { id: 'kr-short', market: 'KR', underlying: '짧은자산', longs: [leg('KR', 'L1', 2)], shorts: [leg('KR', 'S2', -2)],
       index: { symbol: 'T', name: '테스트지수', file: 'ohlc/KR_IDX_T.json', available: true, stale: false, lastDate: 20261002 } },
     { id: 'us-new', market: 'US', underlying: 'NEWCO', longs: [leg('US', 'NEWL', 2)], shorts: [leg('US', 'NEWS', -1)], index: null },
     { id: 'kr-missing', market: 'KR', underlying: '없는자산', longs: [leg('KR', 'MISS', 2, false)], shorts: [leg('KR', 'S1', -2)], index: null },

@@ -2,6 +2,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+import re
+
 import yaml
 
 MARKETS = {"KR", "US"}
@@ -44,7 +46,7 @@ def _leg(raw: dict, where: str) -> Leg:
 def parse_pairs(data: object) -> list[Pair]:
     if not isinstance(data, list):
         raise PairsError("pairs.yaml 최상위는 목록이어야 합니다")
-    pairs, ids = [], set()
+    pairs, ids, idx_files = [], set(), {}
     for i, raw in enumerate(data):
         pid = raw.get("id")
         where = f"pairs[{i}]({pid})"
@@ -71,6 +73,10 @@ def parse_pairs(data: object) -> list[Pair]:
             if not isinstance(ri, dict):
                 raise PairsError(f"{where}.index: symbol·name을 가진 항목이어야 합니다")
             index = _leg({**ri, "mult": 1}, f"{where}.index")
+            # 지수 파일 이름은 영숫자만 남기므로(^SOX → SOX) 다른 기호가 같은 파일을 덮지 않게 막는다.
+            fkey = (market, re.sub(r"[^A-Za-z0-9]", "", index.symbol))
+            if idx_files.setdefault(fkey, index.symbol) != index.symbol:
+                raise PairsError(f"{where}.index: {index.symbol!r}와 {idx_files[fkey]!r}의 파일 이름이 같아집니다")
         pairs.append(Pair(pid, market, str(raw.get("underlying") or pid), longs, shorts, index))
     return pairs
 

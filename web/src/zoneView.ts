@@ -10,7 +10,7 @@ import { pickLegs } from './pair';
 import { GAPS, HOLDS, zoneHash, type ZoneRoute } from './route';
 import { fmtPrice, toTime } from './series';
 import type { Bar, Pair, PairsDoc } from './types';
-import { align, MIN_ROWS, rolling, simulate, startIndex, summarize, type Group } from './zone';
+import { align, defaultStart, MIN_ROWS, rolling, simulate, startIndex, summarize, type Group } from './zone';
 
 const GRAY = '#9ca3af';
 const PRE = 'rgba(156, 163, 175, 0.35)';
@@ -63,6 +63,8 @@ export async function renderZone(
     o.selected = p.id === pair.id;
     return o;
   })) as HTMLSelectElement;
+  // 지수 없는 페어를 주소로 연 경우: 아무것도 고르지 않은 상태로 둬야 첫 항목을 골라도 change 가 난다.
+  if (!indexed.some((p) => p.id === pair.id)) picker.selectedIndex = -1;
   picker.addEventListener('change', () => location.replace(zoneHash({ id: picker.value, from: null, h: route.h, g: route.g })));
   const head = [
     el('a', { href: '#/', class: 'back' }, ['← 목록']),
@@ -86,7 +88,7 @@ export async function renderZone(
 
   const start = startIndex(rows, route.from);
   const days = simulate(rows, start, route.g / 100);
-  const wins = rolling(rows, start, route.h);
+  const wins = rolling(rows, defaultStart(rows), route.h); // 통계는 진입일과 무관하게 10년 전체
   const sum = summarize(wins);
   const last = days[days.length - 1];
   const resets = days.filter((d) => d.reset).length;
@@ -118,6 +120,7 @@ export async function renderZone(
     el('p', { class: 'hint' }, ['빨강 = zone 밖(페어 이익 구간) · 점선 = zone · 차트를 누르면 그날 진입']),
     box('zone-index', days.length),
     el('h2', {}, [route.g ? `1:1 페어 손익 (갭 ${route.g}% 델타 엑싯)` : '1:1 페어 손익 (계속 보유)']),
+    ...(route.g ? [el('p', { class: 'hint' }, ['엑싯한 금액은 현금으로 두고 다시 사지 않습니다 · 매매비용 0.03%'])] : []),
     box('zone-pnl', days.length),
     el('h2', {}, [`${route.h}일 보유 기준 · 모든 진입일${route.g ? ' (엑싯 없이 보유)' : ''}`]),
     el('p', { class: 'hint' }, ['막대 = 그날 사서 ' + route.h + '일 뒤 손익 · 빨강 탈출 · 회색 갇힘']),

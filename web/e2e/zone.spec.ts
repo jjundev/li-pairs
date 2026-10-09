@@ -31,10 +31,11 @@ test('지수 차트를 탭하면 진입일이 바뀐다', async ({ page }) => {
   await page.mouse.click(box.x + box.width * 0.5, box.y + box.height * 0.5);
   await expect(page).toHaveURL(/from=\d{8}/);
   await expect.poll(async () => Number(await page.getByTestId('zone-index').getAttribute('data-bars'))).toBeLessThan(400);
+  await expect(page.getByTestId('zone-rolling')).toHaveAttribute('data-bars', '340'); // 통계는 진입일과 무관
 });
 
 test('H 가 기간보다 길면 수치 칸이 — ', async ({ page }) => {
-  await page.goto('./#/z/kr-test?from=20260801&h=250');
+  await page.goto('./#/z/kr-short?h=250'); // 정렬 250행 → 250일 보유 창 0개
   await expect(page.getByTestId('zone-rolling')).toHaveAttribute('data-bars', '0');
   await expect(page.getByTestId('stat-all')).toContainText('—');
 });
@@ -54,4 +55,10 @@ test('375px 에서 가로 스크롤 없음', async ({ page }) => {
   await page.goto('./#/z/kr-test');
   await expect(page.getByTestId('zone-pnl').locator('canvas').first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+});
+
+test('지수 없는 페어에서 피커로 지수 페어를 고르면 이동한다', async ({ page }) => {
+  await page.goto('./#/z/us-new');
+  await page.getByTestId('zone-pair').selectOption('kr-test');
+  await expect(page).toHaveURL(/#\/z\/kr-test$/);
 });
