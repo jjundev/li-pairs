@@ -142,11 +142,22 @@ export async function renderZone(
   );
 
   const made: IChartApi[] = [];
+  const observers: ResizeObserver[] = [];
   const host = (id: string) => root.querySelector<HTMLElement>(`[data-testid=${id}]`)!;
-  // 10년(약 2,500봉)을 휴대폰 폭 한 화면에 다 넣는다.
+  // 10년(약 2,500봉)을 휴대폰 폭 한 화면에 다 넣는다. 처음 그릴 때는 폭이 아직 0일 수 있어
+  // 폭이 바뀔 때마다 다시 맞춘다.
   const chartOf = (id: string, log: boolean, priceFormatter = fmtPrice) => {
-    const c = baseChart(host(id), log);
+    const h = host(id);
+    const c = baseChart(h, log);
     c.applyOptions({ timeScale: { minBarSpacing: 0.01 }, handleScroll: { vertTouchDrag: false }, localization: { priceFormatter } });
+    let width = 0;
+    const ro = new ResizeObserver(() => {
+      if (h.clientWidth === width) return;
+      width = h.clientWidth;
+      requestAnimationFrame(() => c.timeScale().fitContent());
+    });
+    ro.observe(h);
+    observers.push(ro);
     made.push(c);
     return c;
   };
@@ -187,5 +198,8 @@ export async function renderZone(
   } else {
     host('zone-rolling').append(el('div', { class: 'nodata' }, [`진입 후 ${route.h}거래일이 지나지 않았습니다`]));
   }
-  return () => made.forEach((c) => c.remove());
+  return () => {
+    observers.forEach((o) => o.disconnect());
+    made.forEach((c) => c.remove());
+  };
 }
