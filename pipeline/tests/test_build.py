@@ -2,7 +2,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 from lipairs.bars import FetchError
-from lipairs.build import build, ohlc_name
+from lipairs.build import build, index_name, ohlc_name
 from lipairs.pairs import Leg, Pair
 
 NOW = datetime(2026, 10, 6, 16, 30, tzinfo=timezone(timedelta(hours=9)))
@@ -62,3 +62,32 @@ def test_symbol_shared_by_two_pairs_is_fetched_once(tmp_path):
 
 def test_ohlc_name():
     assert ohlc_name("US", "SOXL") == "ohlc/US_SOXL.json"
+
+
+SOX = Pair("us-semis", "US", "반도체", (Leg("SOXL", "L", 3.0),), (Leg("SOXS", "S", -3.0),),
+           Leg("^SOX", "필라델피아 반도체 지수", 1.0))
+
+
+def test_index_name_strips_non_alnum():
+    assert index_name("US", "^SOX") == "ohlc/US_IDX_SOX.json"
+    assert index_name("KR", "KPI200") == "ohlc/KR_IDX_KPI200.json"
+
+
+def test_index_is_fetched_and_linked(tmp_path):
+    seen = []
+    doc = build([SOX], tmp_path, {"US": lambda s: seen.append(s) or BARS}, NOW)
+    assert "^SOX" in seen
+    assert read(tmp_path / "ohlc/US_IDX_SOX.json")["bars"] == BARS
+    assert doc["pairs"][0]["index"] == {"symbol": "^SOX", "name": "필라델피아 반도체 지수",
+        "file": "ohlc/US_IDX_SOX.json", "available": True, "stale": False, "lastDate": 20261006}
+
+
+def test_index_failure_keeps_previous_file(tmp_path):
+    build([SOX], tmp_path, {"US": ok}, NOW)
+    doc = build([SOX], tmp_path, {"US": lambda s: fail(s) if s == "^SOX" else BARS}, NOW, log=lambda m: None)
+    idx = doc["pairs"][0]["index"]
+    assert (idx["available"], idx["stale"], idx["lastDate"]) == (True, True, 20261006)
+
+
+def test_pair_without_index_is_null(tmp_path):
+    assert build([HYNIX], tmp_path, {"KR": ok}, NOW)["pairs"][0]["index"] is None

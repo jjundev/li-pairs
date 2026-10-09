@@ -25,6 +25,7 @@ class Pair:
     underlying: str
     longs: tuple[Leg, ...]
     shorts: tuple[Leg, ...]
+    index: Leg | None = None
 
     def legs(self) -> tuple[Leg, ...]:
         return self.longs + self.shorts
@@ -64,7 +65,13 @@ def parse_pairs(data: object) -> list[Pair]:
         syms = [leg.symbol for leg in longs + shorts]
         if len(set(syms)) != len(syms):
             raise PairsError(f"{where}: 같은 종목이 두 번 들어 있습니다")
-        pairs.append(Pair(pid, market, str(raw.get("underlying") or pid), longs, shorts))
+        index = None
+        if raw.get("index") is not None:
+            ri = raw["index"]
+            if not isinstance(ri, dict):
+                raise PairsError(f"{where}.index: symbol·name을 가진 항목이어야 합니다")
+            index = _leg({**ri, "mult": 1}, f"{where}.index")
+        pairs.append(Pair(pid, market, str(raw.get("underlying") or pid), longs, shorts, index))
     return pairs
 
 

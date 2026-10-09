@@ -4,6 +4,7 @@
 """
 import argparse
 import json
+import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -24,6 +25,10 @@ def ohlc_name(market: str, symbol: str) -> str:
     return f"ohlc/{market}_{symbol}.json"
 
 
+def index_name(market: str, symbol: str) -> str:
+    return f"ohlc/{market}_IDX_{re.sub(r'[^A-Za-z0-9]', '', symbol)}.json"
+
+
 def _dump(obj) -> str:
     return json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
 
@@ -42,33 +47,47 @@ def _leg_json(market: str, leg: Leg, status: dict) -> dict:
             "file": ohlc_name(market, leg.symbol), **status[(market, leg.symbol)]}
 
 
+def _fetch_one(fetch: Fetcher, market: str, symbol: str, path: Path, log) -> dict:
+    """한 종목을 받아 쓰고 상태를 돌려준다. 실패하면 이전 파일을 그대로 둔다."""
+    try:
+        bars = fetch(symbol)
+        path.write_text(_dump({"symbol": symbol, "market": market,
+                               "currency": CURRENCY[market], "bars": bars}), encoding="utf-8")
+        return {"available": True, "stale": False, "lastDate": bars[-1][0]}
+    except FetchError as e:
+        log(f"[실패] {market} {symbol}: {e}")
+        prev = _last_date(path)
+        return {"available": prev is not None, "stale": prev is not None, "lastDate": prev}
+
+
 def build(pairs: list[Pair], out_dir: Path, fetchers: dict[str, Fetcher], now: datetime,
           pause: float = 0.0, log=print) -> dict:
     out_dir = Path(out_dir)
     (out_dir / "ohlc").mkdir(parents=True, exist_ok=True)
-    status: dict[tuple[str, str], dict] = {}
+    status: dict[tuple, dict] = {}
     for p in pairs:
-        for leg in p.legs():
-            key = (p.market, leg.symbol)
+        jobs = [((p.market, leg.symbol), leg.symbol, ohlc_name(p.market, leg.symbol)) for leg in p.legs()]
+        if p.index:
+            jobs.append((("IDX", p.market, p.index.symbol), p.index.symbol, index_name(p.market, p.index.symbol)))
+        for key, symbol, name in jobs:
             if key in status:
                 continue
-            path = out_dir / ohlc_name(*key)
-            try:
-                bars = fetchers[p.market](leg.symbol)
-                path.write_text(_dump({"symbol": leg.symbol, "market": p.market,
-                                       "currency": CURRENCY[p.market], "bars": bars}), encoding="utf-8")
-                status[key] = {"available": True, "stale": False, "lastDate": bars[-1][0]}
-            except FetchError as e:
-                log(f"[실패] {p.market} {leg.symbol}: {e}")
-                prev = _last_date(path)
-                status[key] = {"available": prev is not None, "stale": prev is not None, "lastDate": prev}
+            status[key] = _fetch_one(fetchers[p.market], p.market, symbol, out_dir / name, log)
             if pause:
                 time.sleep(pause)
+
+    def index_json(p: Pair):
+        if not p.index:
+            return None
+        return {"symbol": p.index.symbol, "name": p.index.name, "file": index_name(p.market, p.index.symbol),
+                **status[("IDX", p.market, p.index.symbol)]}
+
     doc = {
         "generatedAt": now.isoformat(timespec="minutes"),
         "pairs": [{"id": p.id, "market": p.market, "underlying": p.underlying,
                    "longs": [_leg_json(p.market, leg, status) for leg in p.longs],
-                   "shorts": [_leg_json(p.market, leg, status) for leg in p.shorts]} for p in pairs],
+                   "shorts": [_leg_json(p.market, leg, status) for leg in p.shorts],
+                   "index": index_json(p)} for p in pairs],
     }
     (out_dir / "pairs.json").write_text(_dump(doc), encoding="utf-8")
     return doc
@@ -84,6 +103,8 @@ def main(argv=None) -> int:
                 datetime.now(KST), pause=args.pause)
     legs = [leg for p in doc["pairs"] for leg in p["longs"] + p["shorts"]]
     print(f"종목 {len(legs)}개 중 사용 가능 {sum(l['available'] for l in legs)}개, 갱신 실패 {sum(l['stale'] for l in legs)}개")
+    idx = [p["index"] for p in doc["pairs"] if p["index"]]
+    print(f"지수 {len(idx)}개 중 사용 가능 {sum(i['available'] for i in idx)}개")
     if not any(leg["available"] for leg in legs):
         print("모든 종목 수집 실패", file=sys.stderr)
         return 1

@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from lipairs.pairs import PairsError, load_pairs, parse_pairs
+from lipairs.pairs import Leg, PairsError, load_pairs, parse_pairs
 
 GOOD = yaml.safe_load("""
 - id: kr-skhynix
@@ -54,3 +54,24 @@ def test_repo_pairs_yaml_is_valid_and_has_professor_examples():
     assert ids[:3] == ["kr-skhynix", "us-spacex", "us-semis"]
     semis = next(p for p in pairs if p.id == "us-semis")
     assert (semis.longs[0].symbol, semis.shorts[0].symbol) == ("SOXL", "SOXS")
+
+
+def test_index_is_optional_and_parsed():
+    data = yaml.safe_load(yaml.safe_dump(GOOD, allow_unicode=True))
+    data[0]["index"] = {"symbol": "KPI200", "name": "코스피200"}
+    [p] = parse_pairs(data)
+    assert p.index == Leg("KPI200", "코스피200", 1.0)
+    assert parse_pairs(GOOD)[0].index is None
+
+
+def test_index_symbol_must_be_quoted_string():
+    data = yaml.safe_load(yaml.safe_dump(GOOD, allow_unicode=True))
+    data[0]["index"] = {"symbol": 200, "name": "x"}
+    with pytest.raises(PairsError, match="따옴표"):
+        parse_pairs(data)
+
+
+def test_repo_pairs_yaml_links_three_indexes():
+    pairs = load_pairs(Path(__file__).parents[1] / "pairs.yaml")
+    assert {p.id: p.index.symbol for p in pairs if p.index} == {
+        "kr-kospi200": "KPI200", "us-semis": "^SOX", "us-qqq": "^NDX"}
