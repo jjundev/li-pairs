@@ -5,7 +5,7 @@ import { el } from './dom';
 import { fmtGenerated } from './list';
 import { isAsymmetric, multLabel, pickLegs } from './pair';
 import { TF_LABEL, TIMEFRAMES, resample } from './resample';
-import { pairHash, type Route } from './route';
+import { pairHash, zoneHash, type Route } from './route';
 import { commonStart, shortHistoryNotice, toTime } from './series';
 import type { Bar, Leg, Pair } from './types';
 
@@ -97,6 +97,9 @@ export async function renderDetail(
       el('h1', {}, [pair.underlying]),
       el('span', { class: 'badge' }, [pair.market]),
       ...(isAsymmetric(long, short) ? [el('span', { class: 'badge asym' }, ['비대칭'])] : []),
+      ...(pair.index?.available
+        ? [el('a', { class: 'zone-open', href: zoneHash({ id: pair.id, from: null, h: 60, g: 0 }), 'data-testid': 'zone-open' }, ['Zone 보기'])]
+        : []),
     ]),
     ...(pickers.length ? [el('div', { class: 'pickers' }, pickers)] : []),
     el('p', { class: 'status' }, [legStatus(long), ' · ', legStatus(short), ` · 생성 ${fmtGenerated(generatedAt)}`]),

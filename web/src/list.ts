@@ -1,6 +1,6 @@
 import { el } from './dom';
 import { filterPairs, multLabel, pairAvailable, pickLegs } from './pair';
-import { pairHash } from './route';
+import { pairHash, zoneHash } from './route';
 import type { Pair, PairsDoc } from './types';
 
 export const fmtGenerated = (s: string): string => s.replace('T', ' ').slice(0, 16);
@@ -24,6 +24,8 @@ function pairItem(p: Pair): HTMLElement {
 export function renderList(root: HTMLElement, doc: PairsDoc, state: { query: string }): void {
   const input = el('input', { type: 'search', placeholder: '종목·기초자산 검색', value: state.query, class: 'search' }) as HTMLInputElement;
   const list = el('ul', { class: 'pairs' });
+  const zoned = doc.pairs.filter((p) => p.index?.available);
+  const zonePair = zoned.find((p) => p.market === 'KR') ?? zoned[0]; // 국내 지수(코스피200)부터 보여 준다
   const draw = () => {
     const found = filterPairs(doc.pairs, state.query);
     list.replaceChildren(...(found.length ? found.map(pairItem) : [el('li', { class: 'empty' }, ['검색 결과가 없습니다'])]));
@@ -33,7 +35,11 @@ export function renderList(root: HTMLElement, doc: PairsDoc, state: { query: str
     draw();
   });
   root.replaceChildren(
-    el('header', { class: 'top' }, [el('h1', {}, ['롱숏 페어']), el('p', { class: 'sub' }, [`데이터 ${fmtGenerated(doc.generatedAt)}`])]),
+    el('header', { class: 'top' }, [
+      el('h1', {}, ['롱숏 페어']),
+      el('p', { class: 'sub' }, [`데이터 ${fmtGenerated(doc.generatedAt)}`]),
+      ...(zonePair ? [el('a', { class: 'zone-link', href: zoneHash({ id: zonePair.id, from: null, h: 60, g: 0 }), 'data-testid': 'zone-link' }, ['Zone 시뮬레이션 →'])] : []),
+    ]),
     input,
     list,
   );

@@ -5,6 +5,7 @@ import { el } from './dom';
 import { renderList } from './list';
 import { parseHash } from './route';
 import type { PairsDoc } from './types';
+import { renderZone } from './zoneView';
 
 const root = document.getElementById('app')!;
 const listState = { query: '' };
@@ -24,9 +25,12 @@ async function render(): Promise<void> {
   }
   if (my !== token) return;
   const route = parseHash(location.hash);
-  const pair = route.view === 'pair' ? doc.pairs.find((p) => p.id === route.id) : undefined;
-  if (route.view === 'pair' && pair) {
-    const done = await renderDetail(root, pair, route, doc.generatedAt, () => my !== token);
+  const pair = route.view === 'list' ? undefined : doc.pairs.find((p) => p.id === route.id);
+  if (route.view !== 'list' && pair) {
+    const cancelled = () => my !== token;
+    const done = route.view === 'pair'
+      ? await renderDetail(root, pair, route, doc.generatedAt, cancelled)
+      : await renderZone(root, doc, pair, route, cancelled);
     if (my === token) cleanup = done;
     else done();
     return;

@@ -35,7 +35,25 @@ body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
 .chart { width: 100%; height: 34dvh; min-height: 200px; }
 .chart.big { height: 64dvh; }
 .chart .nodata { color: var(--muted); display: grid; place-items: center; height: 100%; }
-.tfbar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 6px; justify-content: center; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line); }
+.tfbar { position: fixed; z-index: 10; left: 0; right: 0; bottom: 0; display: flex; gap: 6px; justify-content: center; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line); }
 .tfbar button { min-width: 44px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); font-size: 15px; white-space: nowrap; }
 .tfbar button[aria-pressed="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 .tfbar .sep { width: 1px; background: var(--line); margin: 4px 2px; }
+.zone-link { display: inline-block; font-size: 14px; font-weight: 600; color: var(--up); text-decoration: none; margin: -6px 0 10px; }
+.zone-open { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--up); text-decoration: none; padding: 4px 8px; border: 1px solid var(--up); border-radius: 8px; }
+.zone-now { font-size: 14px; margin: 4px 0 8px; }
+.zone-now .up { color: var(--up); }
+.zone-now .down { color: var(--down); }
+h2 { font-size: 14px; margin: 14px 0 2px; }
+.hint { font-size: 12px; color: var(--muted); margin: 0 0 4px; }
+.chart.zone { height: 220px; min-height: 0; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 6px; }
+.stat { display: flex; flex-direction: column; padding: 10px 12px; border-radius: 12px; background: var(--card); font-variant-numeric: tabular-nums; }
+.stat-t { font-size: 12px; color: var(--muted); }
+.stat strong { font-size: 18px; }
+.stat-s { font-size: 12px; color: var(--muted); }
+.zbar-space { height: 56px; }
+.tfbar.zbar { flex-direction: column; gap: 6px; padding-top: 8px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+.zbar > div { display: flex; gap: 6px; justify-content: center; align-items: center; }
+.zbar button { height: 36px; min-width: 52px; }
+.zbar .zl { font-size: 12px; color: var(--muted); width: 28px; }

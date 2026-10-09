@@ -2,14 +2,14 @@ import { CandlestickSeries, createChart, LineSeries, PriceScaleMode, type IChart
 import { fmtPrice, normalize, toTime } from './series';
 import type { Bar } from './types';
 
-const UP = '#e5484d';
-const DOWN = '#3b82f6';
+export const UP = '#e5484d';
+export const DOWN = '#3b82f6';
 
 function cssVar(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888888';
 }
 
-function baseChart(host: HTMLElement, log: boolean): IChartApi {
+export function baseChart(host: HTMLElement, log: boolean): IChartApi {
   return createChart(host, {
     autoSize: true,
     layout: { background: { color: 'transparent' }, textColor: cssVar('--muted'), fontSize: 11 },
