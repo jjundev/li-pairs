@@ -31,6 +31,7 @@
 - id: us-semis
   market: US
   underlying: 필라델피아 반도체 (SOX)
+  index: {symbol: "^SOX", name: 필라델피아 반도체 지수}
   longs:
     - {symbol: "SOXL", name: "Direxion Daily Semiconductor Bull 3X ETF", mult: 3}
   shorts:
@@ -66,6 +67,7 @@
 - id: kr-kospi200
   market: KR
   underlying: 코스피200
+  index: {symbol: "KPI200", name: 코스피200}
   longs:
     - {symbol: "122630", name: "KODEX 레버리지", mult: 2}
     - {symbol: "123320", name: "TIGER 레버리지", mult: 2}
@@ -704,7 +706,8 @@
 
 - id: us-qqq
   market: US
-  underlying: "QQQ"
+  underlying: "나스닥100 (QQQ)"
+  index: {symbol: "^NDX", name: 나스닥100}
   longs:
     - {symbol: "TQQQ", name: "ProShares UltraPro QQQ", mult: 3}
     - {symbol: "QLD", name: "ProShares Ultra QQQ", mult: 2}
